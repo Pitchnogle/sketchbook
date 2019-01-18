@@ -29,6 +29,6 @@ void removeBalls() {
   while (i.hasNext()) {
     Ball b = i.next();
     
-    if (b.offscreen()) i.remove();
+    if (b.should_remove()) i.remove();
   }
 }

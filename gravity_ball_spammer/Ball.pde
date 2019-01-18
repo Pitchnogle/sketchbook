@@ -10,6 +10,10 @@ class Ball {
   float ax;
   float ay;
   
+  final int max_bounces = 20;
+  
+  int bounces;
+  
   Ball(color c, float vx, float vy) {
     x = width / 2;
     y = height - 10;
@@ -20,6 +24,8 @@ class Ball {
     
     ax = 0;
     ay = 0.3;
+    
+    bounces = 0;
   }
   
   void show() {
@@ -35,14 +41,19 @@ class Ball {
     vx += 0;
     vy += ay;
     
-    if (y > height - 10) {
+    if (y > height - 6) {
       vy *= -0.8;
       
-      y = height - 10;
+      y = height - 6;
+      
+      bounces++;
     }
   }
   
-  boolean offscreen() {
-    return (x > width || x < 0 || y > height); 
+  boolean should_remove() {
+    boolean out_of_bounds = x > width || x < 0 || y > height;
+    boolean too_many_bounces = bounces > max_bounces;
+    
+    return out_of_bounds || too_many_bounces; 
   }
 }
