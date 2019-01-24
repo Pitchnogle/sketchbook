@@ -4,15 +4,24 @@ Sketch uses parametric equations to resemble a screensaver
 @author Justin Hadella (pitchnogle@gmail.com)
 */
 
-// Arrays of R,G,B colors looks like a spectrum
-int r[] = {250, 250, 250, 125,   0,   0,   0,   0,   0,   0, 125};
-int g[] = {  0, 125, 250, 250, 250, 250, 250, 125,   0,   0,   0};
-int b[] = {  0,   0,   0,   0,   0, 125, 250, 250, 250, 125, 125};
+// Number of steps when cycling through colors
+final int color_steps = 12;
 
+// Stop at ~ violet
+final int color_stop = 220;
+
+// Hue adjustment in drawing inner loop
+final int color_step = color_stop / color_steps;
+
+// Start at red
+int hue = 0;
+
+// Time step
 float t;
 
 void setup() {
   fullScreen();
+  colorMode(HSB);
 }
 
 void draw() {
@@ -24,13 +33,16 @@ void draw() {
   
   // Set origin to center of window
   translate(width / 2, height / 2);
-  
-  for (int i = 0; i < r.length; i++) {
+
+  for (int i = 0, hue = 0; i < color_steps; i++) {
     // Set the color
-    stroke(r[i], g[i], b[i]);
+    stroke((int)hue, 255, 255);
     
     // Draw the line using the parametric equations
     line(x1(t + i), y1(t + i), x2(t + i), y2(t + i));
+    
+    // Update color
+    hue += color_step;
   }
 
   // Time update controls speed
