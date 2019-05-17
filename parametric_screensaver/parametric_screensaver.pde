@@ -20,7 +20,8 @@ int hue = 0;
 float t;
 
 void setup() {
-  fullScreen();
+  size(800, 450);
+  //fullScreen();
   colorMode(HSB);
 }
 
